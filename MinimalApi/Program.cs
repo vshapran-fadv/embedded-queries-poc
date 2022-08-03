@@ -13,7 +13,7 @@ try
     var dbInitializer = app.Services.GetRequiredService<IDbInitializer>();
     await dbInitializer.Initialize();
 
-    app.Run();
+    await app.RunAsync();
 }
 catch (Exception ex)
 {
