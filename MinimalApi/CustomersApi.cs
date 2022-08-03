@@ -25,7 +25,14 @@ public static class CustomersApi
         var id = await repo.AddNew(data, ct);
         await uof.Complete(ct);
 
-        return Results.Ok(id);
+        return Results.Created($"customers/{id}", new Customer
+        {
+            Id = id,
+            Name = data.Name,
+            Address = data.Address,
+            Email = data.Email,
+            Phone = data.Phone
+        });
     }
 
     public static async Task Delete(int id, ICustomerRepo repo, IUnitOfWork uof, CancellationToken ct)
