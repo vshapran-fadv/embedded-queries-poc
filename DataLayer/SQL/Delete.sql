@@ -1,0 +1,1 @@
+﻿DELETE FROM [dbo].[Customer] WHERE Id = @id
