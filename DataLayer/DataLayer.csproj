@@ -6,14 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="SQL\*.sql" />
     <EmbeddedResource Include="SQL\*.sql" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="SQL\AddNew.sql" />
-    <None Remove="SQL\Delete.sql" />
-    <None Remove="SQL\LoadAll.sql" />
-    <None Remove="SQL\LoadByName.sql" />
   </ItemGroup>
 
   <ItemGroup>
