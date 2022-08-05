@@ -1,4 +1,5 @@
-﻿using DataLayer.Model;
+﻿using AutoMapper;
+using DataLayer.Model;
 using DataLayer.Repos;
 using DataLayer.UnitOfWork;
 
@@ -20,24 +21,21 @@ public static class CustomersApi
             : Results.Ok(customer);
     }
 
-    public static async Task<IResult> AddNew(CustomerData data, ICustomerRepo repo, IUnitOfWork uof, CancellationToken ct)
+    public static async Task<IResult> AddNew(CustomerData data, ICustomerRepo repo, IUnitOfWork uof, IMapper mapper, CancellationToken ct)
     {
         var id = await repo.AddNew(data, ct);
+        var customer = mapper.Map<Customer>(data, c => c.AfterMap((_, d) => d.Id = id));
+
         await uof.Complete(ct);
 
-        return Results.Created($"customers/{id}", new Customer
-        {
-            Id = id,
-            Name = data.Name,
-            Address = data.Address,
-            Email = data.Email,
-            Phone = data.Phone
-        });
+        return Results.Created($"customers/{id}", customer);
     }
 
-    public static async Task Delete(int id, ICustomerRepo repo, IUnitOfWork uof, CancellationToken ct)
+    public static async Task<IResult> Delete(int id, ICustomerRepo repo, IUnitOfWork uof, CancellationToken ct)
     {
         await repo.Delete(id, ct);
         await uof.Complete(ct);
+
+        return Results.NoContent();
     }
 }

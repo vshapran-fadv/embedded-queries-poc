@@ -9,6 +9,7 @@ internal static class StartupHelper
         svc.AddEndpointsApiExplorer();
         svc.AddSwaggerGen();
         svc.AddDataLayer();
+        svc.AddAutoMapper(c => c.AddDataLayer());
     }
 
     public static void ConfigureApp(WebApplication app)
