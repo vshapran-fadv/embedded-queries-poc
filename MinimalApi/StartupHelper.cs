@@ -8,8 +8,7 @@ internal static class StartupHelper
     {
         svc.AddEndpointsApiExplorer();
         svc.AddSwaggerGen();
-
-        Dependencies.Register(svc);
+        svc.AddDataLayer();
     }
 
     public static void ConfigureApp(WebApplication app)

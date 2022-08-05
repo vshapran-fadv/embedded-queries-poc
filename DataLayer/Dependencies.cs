@@ -7,7 +7,7 @@ namespace DataLayer
 {
     public static class Dependencies
     {
-        public static void Register(IServiceCollection svc)
+        public static void AddDataLayer(this IServiceCollection svc)
         {
             svc.AddOptions<DbOptions>()
                 .Configure<IConfiguration>((o, c) => c.Bind("DBOptions", o));
